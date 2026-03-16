@@ -66,6 +66,7 @@ uv run iot scan 192.168.1.0/27 2>/dev/null
 ```bash
 pip install . --break-system-packages
 hello
+iot scan 192.168.1.0/27 2>/dev/null
 ```
 
 ## Start over
