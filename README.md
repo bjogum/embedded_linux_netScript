@@ -84,8 +84,6 @@ uv run iot scan 192.168.1.0/27 2>/dev/null
 # If in your personal computer, use pipx
 pip install . --break-system-packages
 net scan 192.168.1.0/27
-net mac 192.168.1.17
-net ispi 2c:cf:67:d1:a5:18
 ```
 
 ## Hints
