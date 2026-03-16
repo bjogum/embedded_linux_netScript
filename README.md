@@ -39,7 +39,7 @@ ssh -p 2225 dev@localhost #password dev
 
 > Create an `empty` repository in github, it must be empty.
 > Copy the `URL` to this repository
-> Remember you need to create a `Persona Access Token` as password.
+> Remember you need to create a `Personal Access Token` as password.
 
 ### Prepare GIT
 
