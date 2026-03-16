@@ -13,6 +13,7 @@ cd ~
 cd ws
 git clone https://github.com/miwashi-edu/edu-embedded-linux.git
 cd edu-embedded-linux
+git switch level-5
 ./start-iotnet.sh # If not started already
 docker compose down
 docker compose up -d --build
