@@ -25,17 +25,20 @@ def scan(netmask: str = typer.Argument(..., help="Netmask to scan (e.g., 192.168
         for ip in network:
             ip_str = str(ip)
             # Using ping -c 1 -t 1 ip
-            process = subprocess.Popen(['ping', '-c', '1', '-W', '200', ip_str],
-                                       stdout=subprocess.PIPE,
-                                       stderr=subprocess.PIPE)
             try:
-                stdout, stderr = process.communicate()
-                if process.returncode == 0:
+                result = subprocess.run(
+                    ["ping", "-n", "-c", "1", "-W", "1", ip_str],
+                    capture_output=True,
+                    text=True,
+                    timeout=3,
+                )
+                if result.returncode == 0:
                     print(ip_str)
                 else:
-                    print(ip_str, file=sys.stderr)
-            except KeyboardInterrupt:
-                process.terminate()
+                    error_msg = result.stderr.strip()
+                    output = f"{ip_str} (error: {error_msg})" if error_msg else ip_str
+                    typer.secho(output, fg=typer.colors.RED, err=True)
+            except (subprocess.TimeoutExpired, KeyboardInterrupt):
                 raise
     except KeyboardInterrupt:
         print("\nScan interrupted by user. Exiting...")
