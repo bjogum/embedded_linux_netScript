@@ -1,4 +1,4 @@
-#FROM balenalib/raspberry-pi:latest
+# FROM balenalib/raspberry-pi:latest
 FROM debian:bookworm-slim
 
 RUN apt-get update && apt-get install -y \
@@ -21,7 +21,7 @@ RUN pip3 install --break-system-packages \
     RPi.GPIO \
     gpiozero
 
-# SSH setup
+# SSH setup + user setup
 RUN mkdir -p /var/run/sshd \
  && useradd -m -s /bin/bash dev \
  && echo "dev:dev" | chpasswd \
@@ -32,7 +32,11 @@ RUN mkdir -p /var/run/sshd \
  && sed -i 's/^#\?PermitRootLogin .*/PermitRootLogin no/' /etc/ssh/sshd_config \
  && sed -i 's@^#\?AuthorizedKeysFile .*@AuthorizedKeysFile .ssh/authorized_keys@' /etc/ssh/sshd_config
 
-WORKDIR /workspace
+# copy local ws directory into ~/ws for user dev
+COPY ws /home/dev/ws
+RUN chown -R dev:dev /home/dev/ws
+
+WORKDIR /home/dev/ws
 
 EXPOSE 22
-CMD ["/usr/sbin/sshd","-D","-e"]
+CMD ["/usr/sbin/sshd", "-D", "-e"]
