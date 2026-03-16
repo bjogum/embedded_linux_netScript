@@ -81,14 +81,41 @@ uv run iot scan 192.168.1.0/27 2>/dev/null
 ## Instructions
 
 ```bash
+# If in your personal computer, use pipx
 pip install . --break-system-packages
-hello
-iot scan 192.168.1.0/27 2>/dev/null
+net scan 192.168.1.0/27
+net mac 192.168.1.17
+net ispi 2c:cf:67:d1:a5:18
 ```
 
-## Start over
+## Hints
 
-```bash
-git reset --hard
-git clean -df
+```python
+def _get_vendor(mac_addr: str):
+    """Internal helper to lookup the vendor of a MAC address."""
+    url = f"https://api.macvendors.com/{mac_addr}"
+    try:
+        # User agent header is often required for some APIs
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req) as response:
+            return response.read().decode('utf-8')
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            return None
+        elif e.code == 429:
+            raise Exception("Too many requests. Please try again later.")
+        else:
+            raise Exception(f"HTTP {e.code} {e.reason}")
+    except Exception as e:
+        raise Exception(f"{e}")
 ```
+
+```python
+result = subprocess.run(
+            ["arp", "-n", ip],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+``
+
