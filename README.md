@@ -53,7 +53,7 @@ cd iot
 git init
 git add .
 git commit -m "initial commit"
-git remote add origin https://github.com/miwashi-edu/iot.git
+git remote add origin [er github länk]
 git push -u origin main
 ```
 
