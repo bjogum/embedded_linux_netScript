@@ -21,11 +21,16 @@ ssh -p 2225 dev@localhost #password dev
 ## Prepare (only once)
 
 ```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 ## Instructions
 
 ```bash
+cd ~
+cd ws
+cd iot
+uv run iot scan 192.168.1.0/27
 ```
 
 ## Instructions
