@@ -5,6 +5,17 @@
 > Find the mac adress of every IP adress
 > Determine if it is a raspberry py from the mac adress.
 
+## Expected output
+
+```text
+No, b0:39:56:57:46:88 192.168.1.1 is not a known Raspberry Pi address.
+No, 68:a4:e:3:f1:5a 192.168.1.2 is not a known Raspberry Pi address.
+No, 7c:2a:ca:b0:40:35 192.168.1.4 is not a known Raspberry Pi address.
+No, 6e:7:6:d5:cb:38 192.168.1.6 is not a known Raspberry Pi address.
+Yes, 88:a2:9e:3f:71:d2 192.168.1.17 is a Raspberry Pi address.
+Yes, 2c:cf:67:d1:a5:18 192.168.1.20 is a Raspberry Pi address.
+```
+
 ## Reset fingerprint (if needed)
 
 ```
